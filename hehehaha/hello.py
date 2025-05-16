@@ -9,12 +9,6 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        color = request.form.get('color', '')
-        luck_num = request.form.get('luck_num', '')
-        fav_class = request.form.get('fav_class', '')
-        best_pix = request.form.get('best_pix', '')
-        return f"Your favorites - Color: {color}, Lucky Number: {luck_num}, Class: {fav_class}, Pixar Movie: {best_pix}"
     return render_template("favorite_template.html")
 
 @app.route('/thanks', methods=['GET', 'POST'])
@@ -49,7 +43,13 @@ def here():
    num = random.randint(1, 25)
    return page.format(num)
 
-
+@app.route('/results', methods=['POST'])
+def results():
+    color = request.form.get('color', '')
+    luck_num = request.form.get('luck_num', '')
+    fav_class = request.form.get('fav_class', '')
+    best_pix = request.form.get('best_pix', '')
+    return f"Your favorites - Color: {color}, Lucky Number: {luck_num}, Class: {fav_class}, Pixar Movie: {best_pix}"
 
 if __name__ == '__main__':
    app.run()
