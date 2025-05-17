@@ -1,17 +1,45 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width">
-      <title>Flask Template</title>
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width">
+         <title>Favorite Form</title>
+         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
    </head>
    <body>
       <form method="POST" action="/results">
          <h2>A Few Of My Favorite Things</h2>
-         <label>Favorite Color: <input type="text" name="color"/></label><br>
-         <label>Lucky Number: <input type="number" name="luck_num"/></label><br>
-         <label>Favorite Class: <input type="text" name="fav_class"/></label><br>
-         <label>Favorite Pixar Movie: <input type="text" name="best_pix"/></label><br>
+         
+         {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+               {% for category, message in messages %}
+                  <div class="flash-message {{ category }}">
+                     {{ message }}
+                  </div>
+               {% endfor %}
+            {% endif %}
+         {% endwith %}
+
+         <label>
+            Favorite Color:
+            <input type="text" name="color" required/>
+         </label>
+
+         <label>
+            Lucky Number:
+            <input type="number" name="luck_num" min="1" max="100" required/>
+         </label>
+
+         <label>
+            Favorite Class:
+            <input type="text" name="fav_class" required/>
+         </label>
+
+         <label>
+            Favorite Pixar Movie:
+            <input type="text" name="best_pix" required/>
+         </label>
+
          <button type="submit">Submit</button>
       </form>
    </body>
